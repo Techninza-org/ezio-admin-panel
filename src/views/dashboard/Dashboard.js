@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import classNames from 'classnames'
 
 import {
-  CAvatar,
-  CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
-  CCardText,
   CCardTitle,
-  CCol,
-  CProgress,
-  CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
 } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
