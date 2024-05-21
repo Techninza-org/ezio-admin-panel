@@ -1,3 +1,4 @@
+import { CForm } from "@coreui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,11 +51,10 @@ export default function AddService() {
         price: "",
         services: [],
         itinerary: [],
-        // images: [],
     });
 
     const handleChange = (e) => {
-        const { name, value, type, checked, files } = e.target;
+        const { name, value, type, checked } = e.target;
 
         if (name === "services") {
             const updatedServices = checked
@@ -73,13 +73,6 @@ export default function AddService() {
                 ...prevData,
                 itinerary: updatedItinerary,
             }));
-        } else if (name === "images") {
-            const updatedImages = Array.from(files)
-            setFormData((prevData) => ({
-                ...prevData,
-                images: updatedImages,
-            }));
-            console.log(updatedImages, 'updatedImages');
         } else {
             setFormData((prevData) => ({
                 ...prevData,
@@ -89,7 +82,6 @@ export default function AddService() {
     };
 
     const handleSubmit = async (e) => {
-        console.log(formData);
         e.preventDefault();
         const token = localStorage.getItem('token')
         const res = await axios.post("http://localhost:3000/service", formData, {
@@ -131,7 +123,7 @@ export default function AddService() {
         for (let i = 1; i <= numberOfDays; i++) {
             inputs.push(
                 <div key={i} className="mb-3">
-                    <label htmlFor={`day${i}`} className="form-label text-dark">Day {i}</label>
+                    <label htmlFor={`day${i}`} className="form-label">Day {i}</label>
                     <input
                         type="text"
                         name={`day${i}`}
@@ -149,7 +141,7 @@ export default function AddService() {
     return (
         <div className="container mt-5 mb-5">
             <h1 className="mb-4 text-center">Add Service</h1>
-            <form className="p-4 bg-light rounded shadow-sm">
+            <CForm className="p-4 rounded shadow-sm">
 
                 <div className="mb-3">
                     <input
@@ -211,10 +203,10 @@ export default function AddService() {
                     />
                 </div>
                 <div className="mb-3">
-                    <h5 className="text-dark">Services</h5>
+                    <h5>Services</h5>
                     <div className="row">
                         {ser.map((service) => (
-                            <div key={service.id} className="col-md-3 text-dark">
+                            <div key={service.id} className="col-md-3">
                                 <ServiceCheckbox
                                     name="services"
                                     value={service.name}
@@ -226,19 +218,15 @@ export default function AddService() {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <h5 className="text-dark">Itinerary</h5>
+                    <h5>Itinerary</h5>
                     {renderItineraryInputs()}
                 </div>
-                {/* <div className="mb-3">
-                    <h5 className="text-dark">Images</h5>
-                    <p className="text-dark">(First Image will be used as service cover image)</p>
-                    <input type="file" name="images" accept="image/*" multiple onChange={handleChange} />
-                </div> */}
+                
 
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary">
                     Submit
                 </button>
-            </form>
+            </CForm>
         </div>
     );
 }

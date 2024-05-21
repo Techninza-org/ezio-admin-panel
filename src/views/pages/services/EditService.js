@@ -1,5 +1,6 @@
 import { cilTrash } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
+import { CForm } from "@coreui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -25,6 +26,8 @@ const ser = [
 
 const EditService = () => {
     const [service, setService] = useState({});
+    const [files, setFiles] = useState([]);
+
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -43,6 +46,30 @@ const EditService = () => {
             </label>
         </div>
     );
+
+    const handleFiles = (event) => {
+        setFiles(Array.from(event.target.files));
+    };
+
+    const uploadPics = async (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        files.forEach((file, index) => {
+            formData.append('files', file);
+        });
+
+        try {
+            const token = localStorage.getItem('token')
+            const response = await axios.put(`http://localhost:3000/service/servicePics/${id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -80,7 +107,6 @@ const EditService = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(res);
         if (res.status === 200) {
             alert("Service updated successfully");
         } else {
@@ -113,7 +139,7 @@ const EditService = () => {
         for (let i = 1; i <= numberOfDays; i++) {
             inputs.push(
                 <div key={i} className="mb-3">
-                    <label htmlFor={`day${i}`} className="form-label text-dark">Day {i}</label>
+                    <label htmlFor={`day${i}`} className="form-label">Day {i}</label>
                     <input
                         type="text"
                         name={`day${i}`}
@@ -148,9 +174,9 @@ const EditService = () => {
     return (
         <div className="container mt-5 mb-5">
             <h1 className="mb-4 text-center">Edit Service</h1>
-            <form className="p-4 bg-light rounded shadow-sm">
-
-                <div className="mb-3">
+            <CForm className="p-4 rounded shadow-sm">
+                <div className="mb-5">
+                    <label htmlFor="name" className="form-label">Service Name</label>
                     <input
                         type="text"
                         name="name"
@@ -160,7 +186,8 @@ const EditService = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="description" className="form-label">Description</label>
                     <input
                         type="text"
                         name="description"
@@ -170,7 +197,8 @@ const EditService = () => {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="duration" className="form-label">Duration (Days)</label>
                     <input
                         type="text"
                         name="duration"
@@ -181,7 +209,8 @@ const EditService = () => {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="price" className="form-label">Price / Night</label>
                     <input
                         type="text"
                         onChange={handleChange}
@@ -192,11 +221,11 @@ const EditService = () => {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
-                    <h5 className="text-dark">Services</h5>
+                <div className="mb-5">
+                    <h5 className="mb-3">Services</h5>
                     <div className="row">
                         {ser.map((service) => (
-                            <div key={service.id} className="col-md-3 text-dark">
+                            <div key={service.id} className="col-md-3">
                                 <ServiceCheckbox
                                     name="services"
                                     value={service.name}
@@ -207,14 +236,20 @@ const EditService = () => {
                         ))}
                     </div>
                 </div>
-                <div className="mb-3">
-                    <h5 className="text-dark">Itinerary</h5>
+                <div className="mb-5">
+                    <h5 className="mb-3">Itinerary</h5>
                     {renderItineraryInputs()}
+                </div>
+                <div className="mb-5">
+                    <h5 className="mb-3">Images</h5>
+                    <p>(First Image will be used as service cover image)</p>
+                    <input type="file" name="images" accept="image/*" multiple onChange={handleFiles} />
+                    <button className="btn btn-primary" onClick={uploadPics}>Upload</button>
                 </div>
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary">
                     Submit
                 </button>
-            </form>
+            </CForm>
             <div className="d-flex justify-content-end"> 
                 <button className="btn btn-danger mt-3" onClick={() => handleDelete(service.id)}>Delete <CIcon icon={cilTrash} /></button>
             </div>

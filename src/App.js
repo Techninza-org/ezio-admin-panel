@@ -19,6 +19,7 @@ const Trips = React.lazy(() => import('./views/pages/Trips/Trips'))
 const ServiceDetails = React.lazy(() => import('./views/pages/services/ServiceDetails'))
 const TripDetails = React.lazy(() => import('./views/pages/Trips/TripDetails'))
 const Profile = React.lazy(() => import('./views/pages/Host/Profile'))
+const EditProfile = React.lazy(() => import('./views/pages/Host/EditProfile'))
 
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
@@ -61,6 +62,7 @@ const App = () => {
           <Route exact path="/trip/:id" name="trips" element={<TripDetails />} />
           <Route exact path="/service/:id" name="services" element={<ServiceDetails />} />
           <Route exact path='/profile' name='Profile' element={<Profile />} />
+          <Route exact path='/profile/edit' name='EditProfile' element={<EditProfile />} />
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
       </Suspense>

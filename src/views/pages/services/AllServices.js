@@ -1,15 +1,13 @@
 'use client'
 import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilPencil, cilTrash } from '@coreui/icons';
-import { Button } from '@coreui/coreui';
+import { cilPencil } from '@coreui/icons';
 
 const AllServices = () => {
     const [services, setServices] = useState([]);
-    const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'))
     const token = localStorage.getItem('token')
     async function getServices() {

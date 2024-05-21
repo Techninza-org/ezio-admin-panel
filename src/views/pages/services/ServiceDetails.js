@@ -6,17 +6,16 @@ import { useParams } from 'react-router-dom'
 export default function ServiceDetails() {
     const [service, setService] = useState({})
     const { id } = useParams()
+    async function getService() {
+        const token = localStorage.getItem('token')
+        const res = await axios.get(`http://localhost:3000/service/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        setService(res.data.service)
+    }
     useEffect(() => {
-        async function getService() {
-            const token = localStorage.getItem('token')
-            const res = await axios.get(`http://localhost:3000/service/${id}`, {
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
-              })
-            console.log(res.data);
-            setService(res.data.service)
-        }
         getService()
     }, [])
 
@@ -35,8 +34,8 @@ export default function ServiceDetails() {
                             <p><span style={{ fontWeight: 'bold' }}>Services:</span></p>
                             <ul className="">
                                 {
-                                    service?.services?.map((service, index) => (
-                                        <li key={index}>{service}</li>
+                                    service.services?.map((item, index) => (
+                                        <li key={index}>{item}</li>
                                     ))
                                 }
                             </ul>
@@ -48,6 +47,14 @@ export default function ServiceDetails() {
                                     ))
                                 }
                             </ol>
+                            <p><span style={{ fontWeight: 'bold' }}>Images</span></p>
+                            <div style={{ display: 'flex', overflowX: 'auto', gap: '10px' }}>
+    {
+        service?.images?.map((image, index) => (
+            <img key={index} src={image} alt='service' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ))
+    }
+</div>
                         </div>
                     </CCardBody>
                 </CCard>
