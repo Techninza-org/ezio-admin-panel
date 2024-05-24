@@ -20,7 +20,7 @@ export default function Profile() {
     async function getProfile() {
         const token = localStorage.getItem('token')
         const userId = JSON.parse(localStorage.getItem('user')).id
-        const res = await axios.get(`http://localhost:3000/host/profile/${userId}`, {
+        const res = await axios.get(`http://103.189.172.172:3000/host/profile/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -34,7 +34,7 @@ export default function Profile() {
         const userId = JSON.parse(localStorage.getItem('user')).id;
         const formData = new FormData();
         formData.append('image', file);
-        const res = await axios.post(`http://localhost:3000/host/profile/${userId}`, formData, {
+        const res = await axios.post(`http://103.189.172.172:3000/host/profile/${userId}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data',

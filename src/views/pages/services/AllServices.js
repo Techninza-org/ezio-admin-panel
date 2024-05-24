@@ -1,4 +1,3 @@
-'use client'
 import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -11,7 +10,7 @@ const AllServices = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const token = localStorage.getItem('token')
     async function getServices() {
-        const res = await axios.get(`http://localhost:3000/service/host/${user.id}`, {
+        const res = await axios.get(`http://103.189.172.172:3000/service/host/${user.id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

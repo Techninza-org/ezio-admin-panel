@@ -60,12 +60,13 @@ const EditService = () => {
 
         try {
             const token = localStorage.getItem('token')
-            const response = await axios.put(`http://localhost:3000/service/servicePics/${id}`, formData, {
+            const response = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            alert("Images uploaded successfully");
         } catch (error) {
             console.error(error);
         }
@@ -102,7 +103,7 @@ const EditService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.put(`http://localhost:3000/service/${id}`, service, {
+        const res = await axios.put(`http://103.189.172.172:3000/service/${id}`, service, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -119,7 +120,7 @@ const EditService = () => {
         const getService = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const res = await axios.get(`http://localhost:3000/service/${id}`, {
+                const res = await axios.get(`http://103.189.172.172:3000/service/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -161,7 +162,7 @@ const EditService = () => {
                 return;
             };
             const token = localStorage.getItem('token')
-            const res = await axios.delete(`http://localhost:3000/service/${id}`, {
+            const res = await axios.delete(`http://103.189.172.172:3000/service/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

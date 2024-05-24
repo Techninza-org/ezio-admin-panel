@@ -2,6 +2,8 @@ import { CForm } from "@coreui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ser = [
     {
@@ -22,6 +24,10 @@ const ser = [
     },
 ];
 
+const types = [
+    { id: 0, type: "Default" },
+    { id: 1, type: "Group" },
+]
 const ServiceCheckbox = ({ name, value, label, onChange }) => (
     <div className="form-check">
         <input
@@ -39,6 +45,9 @@ const ServiceCheckbox = ({ name, value, label, onChange }) => (
 
 export default function AddService() {
     const [destinations, setDestinations] = useState([]);
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [group, setGroup] = useState(false);
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
 
@@ -51,10 +60,24 @@ export default function AddService() {
         price: "",
         services: [],
         itinerary: [],
+        type: "",
+        start_date: "",
+        end_date: "",
+        total_seats: "",
+        available_seats: "",
+        numberOfPickups: "",
+        pickups: []
     });
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        if(name === 'type'){
+            if(value === '1'){
+                setGroup(true);
+            }else{
+                setGroup(false);
+            }
+        }
 
         if (name === "services") {
             const updatedServices = checked
@@ -72,8 +95,22 @@ export default function AddService() {
             setFormData((prevData) => ({
                 ...prevData,
                 itinerary: updatedItinerary,
-            }));
-        } else {
+            }))
+        } else if(name.startsWith("pickup")) {
+            const dayIndex = parseInt(name.slice(6)) - 1;
+            const updatedPickups = [...formData.pickups];
+            updatedPickups[dayIndex] = value;
+            setFormData((prevData) => ({
+                ...prevData,
+                pickups: updatedPickups,
+            }))
+        }else if(name === "total_seats"){
+            setFormData((prevData) => ({
+                ...prevData,
+                total_seats: value,
+                available_seats: value
+            }))
+        }else {
             setFormData((prevData) => ({
                 ...prevData,
                 [name]: type === "checkbox" ? checked : value,
@@ -84,7 +121,8 @@ export default function AddService() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.post("http://localhost:3000/service", formData, {
+        console.log(formData);
+        const res = await axios.post("http://103.189.172.172:3000/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -101,7 +139,7 @@ export default function AddService() {
     const getDestinations = async () => {
         const token = localStorage.getItem('token')
         try {
-            const response = await axios.get("http://localhost:3000/destination", {
+            const response = await axios.get("http://103.189.172.172:3000/destination", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -138,12 +176,106 @@ export default function AddService() {
         return inputs;
     };
 
+    const renderPickupInputs = () => {
+        const { numberOfPickups } = formData;
+        const numOfPickups =  parseInt(numberOfPickups) || 0;
+        const inputs = [];
+        for (let i = 1; i <= numOfPickups; i++) {
+            inputs.push(
+                <div key={i} className="mb-3">
+                    <label htmlFor={`pickup${i}`} className="form-label">Pickup {i}</label>
+                    <input
+                        type="text"
+                        name={`pickup${i}`}
+                        value={formData.pickups[i - 1] || ""}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder={`Pickup ${i}`}
+                    />
+                </div>
+            );
+        }
+        return inputs;
+    }
+
     return (
         <div className="container mt-5 mb-5">
             <h1 className="mb-4 text-center">Add Service</h1>
             <CForm className="p-4 rounded shadow-sm">
-
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="type" className="form-label">Service Type</label>
+                    <select
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                        className="form-select"
+                    >
+                        <option value="">Select Service Type</option>
+                        {types.map((item) => (
+                            <option key={item.id} value={item.id}>
+                                {item.type}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {group &&
+                 <div className="mb-5">
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ width: '45%' }}>
+                            <label htmlFor="start_date" className="form-label" style={{marginRight: '15px'}}>Start Date</label>
+                            <DatePicker
+                                id="start_date"
+                                selectsStart
+                                selected={startDate}
+                                onChange={(date) => {
+                                    setStartDate(date)
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        start_date: date
+                                    }))
+                                }}
+                                autoComplete="off"
+                                startDate={startDate}
+                                className="form-control"
+                            />
+                        </div>
+                        <div style={{ width: '45%' }}>
+                            <label htmlFor="end_date" className="form-label" style={{marginRight: '15px'}}>End Date</label>
+                            <DatePicker
+                                id="end_date"
+                                selectsEnd
+                                selected={endDate}
+                                onChange={(date) => {
+                                    setEndDate(date)
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        end_date: date
+                                    }))
+                                }}
+                                endDate={endDate}
+                                startDate={startDate}
+                                minDate={startDate}
+                                autoComplete="off"
+                                className="form-control"
+                            />
+                        </div>
+                    </div>
+                </div>
+                }       
+                {group && <div className="mb-5">
+                    <label htmlFor="total_seats" className="form-label">Total Seats</label>
+                    <input
+                        type="text"
+                        name="total_seats"
+                        value={formData.total_seats}
+                        onChange={handleChange}
+                        placeholder="Total Seats"
+                        pattern="[0-9]*"
+                        className="form-control"
+                    />
+                </div>}
+                <div className="mb-5">
+                    <label htmlFor="name" className="form-label">Service Name</label>
                     <input
                         type="text"
                         name="name"
@@ -153,7 +285,8 @@ export default function AddService() {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="description" className="form-label">Description</label>
                     <input
                         type="text"
                         name="description"
@@ -164,7 +297,8 @@ export default function AddService() {
                     />
                 </div>
                 {destinations.length > 0 && (
-                    <div className="mb-3">
+                    <div className="mb-5">
+                        <label htmlFor="destination" className="form-label">Destination</label>
                         <select
                             name="destination"
                             value={formData.destination}
@@ -180,7 +314,8 @@ export default function AddService() {
                         </select>
                     </div>
                 )}
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="duration" className="form-label">Duration</label>
                     <input
                         type="text"
                         name="duration"
@@ -191,7 +326,8 @@ export default function AddService() {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
+                    <label htmlFor="price" className="form-label">Price</label>
                     <input
                         type="text"
                         onChange={handleChange}
@@ -202,7 +338,7 @@ export default function AddService() {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
                     <h5>Services</h5>
                     <div className="row">
                         {ser.map((service) => (
@@ -217,11 +353,19 @@ export default function AddService() {
                         ))}
                     </div>
                 </div>
-                <div className="mb-3">
+                <div className="mb-5">
                     <h5>Itinerary</h5>
                     {renderItineraryInputs()}
                 </div>
-                
+
+                <div className="mb-5">
+                    <h5>Pickups</h5>
+                    <label htmlFor="numberOfPickups" className="form-label">Number of Pickup Locations</label>
+                    <input type="text" name="numberOfPickups" value={formData.numberOfPickups} onChange={handleChange} placeholder="Number of Pickup locations" className="form-control mb-3" />
+                    {renderPickupInputs()}
+                </div>
+
+
 
                 <button type="submit" onClick={handleSubmit} className="btn btn-primary">
                     Submit

@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 import { cilDescription, cilPencil, cilTransfer } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 
-export default function Trips() {
+export default function CustomTripsToBid() {
     const [trips, setTrips] = useState([]);
-    const user_id = JSON.parse(localStorage.getItem('user')).id
     useEffect(() => {
         async function getTrips() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`http://103.189.172.172:3000/host/trips?id=${user_id}`, {
+            const res = await axios.get(`http://103.189.172.172:3000/custom/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            const trips = res.data.trips;
+            const trips = res.data.custom_trips;
+            console.log(res.data);
             setTrips(trips);
         }
         getTrips();
@@ -26,27 +26,7 @@ export default function Trips() {
         () => [
             {
                 header: 'Details',
-                accessorFn: (dataRow) => <Link to={`/trip/${dataRow.id}`}><CIcon icon={cilDescription} /></Link>,
-                size: 50,
-            },
-            {
-                header: 'Name',
-                accessorKey: 'user.username',
-                size: 100,
-            },
-            {
-                header: 'Phone',
-                accessorKey: 'user.phone',
-                size: 100,
-            },
-            {
-                header: 'Destination',
-                accessorKey: 'destination',
-                size: 150
-            },
-            {
-                header: 'Duration (days)',
-                accessorKey: 'service.duration',
+                accessorFn: (dataRow) => <Link to={`/bidding/details/${dataRow.id}`}><CIcon icon={cilDescription} /></Link>,
                 size: 50,
             },
             {
@@ -64,11 +44,6 @@ export default function Trips() {
                 accessorKey: 'end_date',
                 size: 100,
             },
-            {
-                header: 'Booking Price',
-                accessorKey: 'cost',
-                size: 100,
-            },
         ],
         [],
     );
@@ -82,7 +57,7 @@ export default function Trips() {
     });
     return (
         <div className='mt-3 mx-5'>
-            <h1 className='text-center mb-4'>All Trips</h1>
+            <h1 className='text-center mb-4'>All Trips For Bidding</h1>
             <MantineReactTable table={table} />
         </div>
     )

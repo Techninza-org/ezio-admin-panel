@@ -28,7 +28,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token')
       const user_id = JSON.parse(user).id
       async function getServices() {
-        const res = await axios.get(`http://localhost:3000/service/host/${user_id}`, {
+        const res = await axios.get(`http://103.189.172.172:3000/service/host/${user_id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -36,7 +36,7 @@ const Dashboard = () => {
         setServiceCount(res.data.count)
       }
       async function getTrips() {
-        const res = await axios.get(`http://localhost:3000/host/trips?id=${user_id}`,{
+        const res = await axios.get(`http://103.189.172.172:3000/host/trips?id=${user_id}`,{
           headers: {
           Authorization: `Bearer ${token}`
           }

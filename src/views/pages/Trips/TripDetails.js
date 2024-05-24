@@ -10,7 +10,7 @@ export default function TripDetails() {
     useEffect(() => {
         async function getTrip() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`http://localhost:3000/host/trip/${id}`, {
+            const res = await axios.get(`http://103.189.172.172:3000/host/trip/${id}`, {
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
@@ -34,8 +34,8 @@ export default function TripDetails() {
                             <p><span style={{ fontWeight: 'bold' }}>No. of people:</span> {trip.number_of_people}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Phone:</span> {trip.user?.phone}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Duration:</span> {service?.duration} days</p>
-                            <p><span style={{ fontWeight: 'bold' }}>Start Date:</span>{new Date(trip.start_date).toLocaleDateString()}</p>
-                            <p><span style={{ fontWeight: 'bold' }}>End Date:</span>{new Date(trip.end_date).toLocaleDateString()}</p>
+                            <p><span style={{ fontWeight: 'bold' }}>Start Date:</span>{trip.start_date}</p>
+                            <p><span style={{ fontWeight: 'bold' }}>End Date:</span>{trip.end_date}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Booking Price:</span> Rs. {trip.cost}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Service Name:</span>{trip.service?.name}</p>
                             <p><span style={{ fontWeight: 'bold' }}>Services:</span></p>

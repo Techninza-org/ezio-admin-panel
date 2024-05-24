@@ -20,6 +20,9 @@ const ServiceDetails = React.lazy(() => import('./views/pages/services/ServiceDe
 const TripDetails = React.lazy(() => import('./views/pages/Trips/TripDetails'))
 const Profile = React.lazy(() => import('./views/pages/Host/Profile'))
 const EditProfile = React.lazy(() => import('./views/pages/Host/EditProfile'))
+const CustomTripsToBid = React.lazy(() => import('./views/pages/Custom/CustomTripsToBid'))
+const TripToBidDetails = React.lazy(() => import('./views/pages/Custom/TripToBidDetails'))
+const AddCustomService = React.lazy(() => import('./views/pages/Custom/AddCustomService'))
 
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
@@ -63,6 +66,9 @@ const App = () => {
           <Route exact path="/service/:id" name="services" element={<ServiceDetails />} />
           <Route exact path='/profile' name='Profile' element={<Profile />} />
           <Route exact path='/profile/edit' name='EditProfile' element={<EditProfile />} />
+          <Route exact path='/bidding' name='Custom' element={<CustomTripsToBid />} />
+          <Route exact path='/bidding/details/:id' name='Custom' element={<TripToBidDetails />} />
+          <Route exact path='/bidding/service/:id' name='Custom' element={<AddCustomService />} />
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
       </Suspense>

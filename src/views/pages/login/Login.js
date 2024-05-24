@@ -28,7 +28,7 @@ const Login = () => {
         password: password,
       }
       const response = await axios.post(
-        "http://localhost:3000/auth/host-login",
+        "http://103.189.172.172:3000/auth/host-login",
         creds
       );
       localStorage.setItem('user', JSON.stringify(response.data.user));
