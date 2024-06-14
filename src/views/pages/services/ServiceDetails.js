@@ -49,12 +49,12 @@ export default function ServiceDetails() {
                             </ol>
                             <p><span style={{ fontWeight: 'bold' }}>Images</span></p>
                             <div style={{ display: 'flex', overflowX: 'auto', gap: '10px' }}>
-    {
-        service?.images?.map((image, index) => (
-            <img key={index} src={image} alt='service' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ))
-    }
-</div>
+                                {
+                                    service?.images?.map((image, index) => (
+                                        <img key={index} src={image} alt='service' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ))
+                                }
+                            </div>
                         </div>
                     </CCardBody>
                 </CCard>

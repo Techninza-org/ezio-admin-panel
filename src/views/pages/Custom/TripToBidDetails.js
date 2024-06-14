@@ -39,7 +39,7 @@ export default function TripToBidDetails() {
                                         <li key={index}>
                                             <p><span style={{ fontWeight: 'bold' }}>Day {index + 1}</span></p>
                                             <p><span style={{ fontWeight: 'bold' }}>Destination:</span> {item.destination}</p>
-                                            <p><span style={{ fontWeight: 'bold' }}>Activities:</span> {item.activities.join(', ')}</p>
+                                            <p><span style={{ fontWeight: 'bold' }}>Activities:</span> {item.activities?.join(', ')}</p>
                                         </li>
                                     ))
                                 }
