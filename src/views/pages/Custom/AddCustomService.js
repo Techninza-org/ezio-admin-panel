@@ -17,11 +17,12 @@ const AddCustomService = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
+            console.log(res.data.custom_trip);
             setTrip(res.data.custom_trip)
             const newItinerary = res.data.custom_trip.itinerary.map((item) => {
                 return {
                     destination: item.destination,
-                    activities: item.activities.map((activity) => {
+                    activities: item.selectedActivities?.map((activity) => {
                         return activity.split(',').map((values) => {
                             return {
                                 activity: values,
