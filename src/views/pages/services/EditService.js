@@ -51,24 +51,55 @@ const EditService = () => {
         setFiles(Array.from(event.target.files));
     };
 
-    const uploadPics = async (e) => {
-        e.preventDefault()
-        const formData = new FormData();
-        files.forEach((file, index) => {
-            formData.append('files', file);
-        });
+    // const uploadPics = async (e) => {
+    //     e.preventDefault()
+    //     const formData = new FormData();
+    //     files.forEach((file, index) => {
+    //         formData.append('files', file);
+    //     });
 
+    //     try {
+    //         const token = localStorage.getItem('token')
+    //         const response = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, formData, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //                 'Content-Type': 'multipart/form-data',
+    //             },
+    //         });
+    //         alert("Images uploaded successfully");
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+    const uploadPics = async (e) => {
+        e.preventDefault();
+        console.log(files);
         try {
-            const token = localStorage.getItem('token')
-            const response = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, formData, {
+            const cloudinaryResponses = await Promise.all(files.map(async (file) => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', 'c3k94jx2');
+                formData.append('folder', 'ezio_vendor');
+
+                const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dr4iluda9/image/upload', formData);
+                return cloudinaryResponse.data.secure_url;
+            }));
+            console.log(cloudinaryResponses);
+            const imageUrls = cloudinaryResponses
+            console.log(imageUrls);
+
+            const token = localStorage.getItem('token');
+            // const serviceId = service.id;
+            const updateProfileResponse = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, imageUrls, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
+                }
             });
+            console.log(updateProfileResponse.data);
+
             alert("Images uploaded successfully");
         } catch (error) {
-            console.error(error);
+            console.error('Error uploading images:', error);
         }
     };
 
@@ -251,7 +282,7 @@ const EditService = () => {
                     Submit
                 </button>
             </CForm>
-            <div className="d-flex justify-content-end"> 
+            <div className="d-flex justify-content-end">
                 <button className="btn btn-danger mt-3" onClick={() => handleDelete(service.id)}>Delete <CIcon icon={cilTrash} /></button>
             </div>
         </div>

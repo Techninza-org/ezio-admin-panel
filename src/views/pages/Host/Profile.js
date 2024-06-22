@@ -29,19 +29,33 @@ export default function Profile() {
     }
 
     const handleUploadPic = async (e) => {
-        const file = e.target.files[0];
-        const token = localStorage.getItem('token');
-        const userId = JSON.parse(localStorage.getItem('user')).id;
+        e.preventDefault();
+        const file = e.target.files[0]; 
         const formData = new FormData();
-        formData.append('image', file);
-        const res = await axios.post(`http://103.189.172.172:3000/host/profile/${userId}`, formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        window.location.reload()
+        formData.append('file', file); 
+        formData.append('upload_preset', 'c3k94jx2'); 
+        formData.append('folder', 'ezio_vendor'); 
+    
+        try {
+            const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dr4iluda9/image/upload', formData);
+    
+            const imageUrl = await cloudinaryResponse.data.secure_url;
+    
+            const token = localStorage.getItem('token'); 
+            const profileId = profile.id; 
+            const updateProfileResponse = await axios.post(`http://103.189.172.172:3000/host/profile/${profileId}`, {photo: imageUrl}, {
+                headers: {
+                    Authorization: `Bearer ${token}` 
+                }
+            });
+            console.log(updateProfileResponse.data);
+    
+            window.location.reload();
+        } catch (error) {
+            console.error('Error uploading image or updating profile:', error);
+        }
     };
+    
 
     return (
         <div>
