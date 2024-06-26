@@ -4,6 +4,7 @@ import { CForm } from "@coreui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppSidebar, AppHeader } from '../../../components/index'
 
 const ser = [
     {
@@ -25,6 +26,7 @@ const ser = [
 ];
 
 const EditService = () => {
+    const [options, setOptions] = useState([])
     const [service, setService] = useState({});
     const [files, setFiles] = useState([]);
 
@@ -51,26 +53,6 @@ const EditService = () => {
         setFiles(Array.from(event.target.files));
     };
 
-    // const uploadPics = async (e) => {
-    //     e.preventDefault()
-    //     const formData = new FormData();
-    //     files.forEach((file, index) => {
-    //         formData.append('files', file);
-    //     });
-
-    //     try {
-    //         const token = localStorage.getItem('token')
-    //         const response = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, formData, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //                 'Content-Type': 'multipart/form-data',
-    //             },
-    //         });
-    //         alert("Images uploaded successfully");
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
     const uploadPics = async (e) => {
         e.preventDefault();
         console.log(files);
@@ -89,8 +71,7 @@ const EditService = () => {
             console.log(imageUrls);
 
             const token = localStorage.getItem('token');
-            // const serviceId = service.id;
-            const updateProfileResponse = await axios.put(`http://103.189.172.172:3000/service/servicePics/${id}`, imageUrls, {
+            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/service/servicePics/${id}`, imageUrls, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -134,7 +115,7 @@ const EditService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.put(`http://103.189.172.172:3000/service/${id}`, service, {
+        const res = await axios.put(`http://103.189.173.132:3000/service/${id}`, service, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -147,11 +128,18 @@ const EditService = () => {
         navigate("/service/all")
     };
 
+    async function getServiceOptions() {
+        const res = await axios.get('http://103.189.173.132:3000/superAdmin/service-options')
+        const ser = res.data.serviceOptions;
+        console.log(res.data.serviceOptions);
+        setOptions(ser);
+    }
+
     useEffect(() => {
         const getService = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const res = await axios.get(`http://103.189.172.172:3000/service/${id}`, {
+                const res = await axios.get(`http://103.189.173.132:3000/service/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -162,6 +150,7 @@ const EditService = () => {
             }
         };
         getService()
+        getServiceOptions();
     }, []);
 
     const renderItineraryInputs = () => {
@@ -204,88 +193,96 @@ const EditService = () => {
         }
     }
     return (
-        <div className="container mt-5 mb-5">
-            <h1 className="mb-4 text-center">Edit Service</h1>
-            <CForm className="p-4 rounded shadow-sm">
-                <div className="mb-5">
-                    <label htmlFor="name" className="form-label">Service Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={service.name}
-                        placeholder="Service Name"
-                        className="form-control"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="description" className="form-label">Description</label>
-                    <input
-                        type="text"
-                        name="description"
-                        value={service.description}
-                        onChange={handleChange}
-                        placeholder="Description"
-                        className="form-control"
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="duration" className="form-label">Duration (Days)</label>
-                    <input
-                        type="text"
-                        name="duration"
-                        value={service.duration}
-                        onChange={handleChange}
-                        placeholder="Duration (no. of days)"
-                        pattern="[0-9]*"
-                        className="form-control"
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="price" className="form-label">Price / Night</label>
-                    <input
-                        type="text"
-                        onChange={handleChange}
-                        name="price"
-                        value={service.price}
-                        placeholder="Price / Night"
-                        pattern="[0-9]*"
-                        className="form-control"
-                    />
-                </div>
-                <div className="mb-5">
-                    <h5 className="mb-3">Services</h5>
-                    <div className="row">
-                        {ser.map((service) => (
-                            <div key={service.id} className="col-md-3">
-                                <ServiceCheckbox
-                                    name="services"
+        <>
+            <AppSidebar />
+            <div className="wrapper d-flex flex-column min-vh-100">
+                <AppHeader />
+                <div className="body flex-grow-1">
+                    <div className="container mt-5 mb-5">
+                        <h1 className="mb-4 text-center">Edit Service</h1>
+                        <CForm className="p-4 rounded shadow-sm">
+                            <div className="mb-5">
+                                <label htmlFor="name" className="form-label">Service Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
                                     value={service.name}
-                                    label={service.name}
+                                    placeholder="Service Name"
+                                    className="form-control"
                                     onChange={handleChange}
                                 />
                             </div>
-                        ))}
+                            <div className="mb-5">
+                                <label htmlFor="description" className="form-label">Description</label>
+                                <input
+                                    type="text"
+                                    name="description"
+                                    value={service.description}
+                                    onChange={handleChange}
+                                    placeholder="Description"
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="mb-5">
+                                <label htmlFor="duration" className="form-label">Duration (Days)</label>
+                                <input
+                                    type="text"
+                                    name="duration"
+                                    value={service.duration}
+                                    onChange={handleChange}
+                                    placeholder="Duration (no. of days)"
+                                    pattern="[0-9]*"
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="mb-5">
+                                <label htmlFor="price" className="form-label">Price / Night</label>
+                                <input
+                                    type="text"
+                                    onChange={handleChange}
+                                    name="price"
+                                    value={service.price}
+                                    placeholder="Price / Night"
+                                    pattern="[0-9]*"
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="mb-5">
+                                <h5 className="mb-3">Services</h5>
+                                <div className="row">
+                                    {options?.map((service) => (
+                                        <div key={service.id} className="col-md-3">
+                                            <ServiceCheckbox
+                                                name="services"
+                                                value={service.name}
+                                                label={service.name}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="mb-5">
+                                <h5 className="mb-3">Itinerary</h5>
+                                {renderItineraryInputs()}
+                            </div>
+                            <div className="mb-5">
+                                <h5 className="mb-3">Images</h5>
+                                <p>(First Image will be used as service cover image)</p>
+                                <input type="file" name="images" accept="image/*" multiple onChange={handleFiles} />
+                                <button className="btn btn-primary" onClick={uploadPics}>Upload</button>
+                            </div>
+                            <button type="submit" onClick={handleSubmit} className="btn btn-primary">
+                                Submit
+                            </button>
+                        </CForm>
+                        <div className="d-flex justify-content-end">
+                            <button className="btn btn-danger mt-3" onClick={() => handleDelete(service.id)}>Delete <CIcon icon={cilTrash} /></button>
+                        </div>
                     </div>
                 </div>
-                <div className="mb-5">
-                    <h5 className="mb-3">Itinerary</h5>
-                    {renderItineraryInputs()}
-                </div>
-                <div className="mb-5">
-                    <h5 className="mb-3">Images</h5>
-                    <p>(First Image will be used as service cover image)</p>
-                    <input type="file" name="images" accept="image/*" multiple onChange={handleFiles} />
-                    <button className="btn btn-primary" onClick={uploadPics}>Upload</button>
-                </div>
-                <button type="submit" onClick={handleSubmit} className="btn btn-primary">
-                    Submit
-                </button>
-            </CForm>
-            <div className="d-flex justify-content-end">
-                <button className="btn btn-danger mt-3" onClick={() => handleDelete(service.id)}>Delete <CIcon icon={cilTrash} /></button>
             </div>
-        </div>
+        </>
     )
 }
 

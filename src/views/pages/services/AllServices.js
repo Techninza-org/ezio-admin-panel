@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
 import { cilPencil } from '@coreui/icons';
+import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AllServices = () => {
     const [services, setServices] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'))
     const token = localStorage.getItem('token')
     async function getServices() {
-        const res = await axios.get(`http://103.189.172.172:3000/service/host/${user.id}`, {
+        const res = await axios.get(`http://103.189.173.132:3000/service/host/${user.id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -59,10 +60,18 @@ const AllServices = () => {
     });
 
     return (
-        <div className='mt-3 mx-5'>
-            <h1 className='text-center mb-4'>All Services</h1>
-            <MantineReactTable table={table} />
-        </div>
+        <>
+            <AppSidebar />
+            <div className="wrapper d-flex flex-column min-vh-100">
+                <AppHeader />
+                <div className="body flex-grow-1">
+                    <div className='mt-3 mx-5'>
+                        <h1 className='text-center mb-4'>All Services</h1>
+                        <MantineReactTable table={table} />
+                    </div>
+                </div>
+            </div>
+        </>
 
     )
 }

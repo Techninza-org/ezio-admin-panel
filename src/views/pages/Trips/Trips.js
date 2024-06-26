@@ -4,6 +4,7 @@ import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import { Link } from 'react-router-dom';
 import { cilDescription, cilPencil, cilTransfer } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
+import { AppSidebar, AppHeader } from '../../../components/index'
 
 export default function Trips() {
     const [trips, setTrips] = useState([]);
@@ -11,7 +12,7 @@ export default function Trips() {
     useEffect(() => {
         async function getTrips() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`http://103.189.172.172:3000/host/trips?id=${user_id}`, {
+            const res = await axios.get(`http://103.189.173.132:3000/host/trips?id=${user_id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -81,9 +82,17 @@ export default function Trips() {
         enableGlobalFilter: true,
     });
     return (
-        <div className='mt-3 mx-5'>
-            <h1 className='text-center mb-4'>All Trips</h1>
-            <MantineReactTable table={table} />
-        </div>
+        <>
+            <AppSidebar />
+            <div className="wrapper d-flex flex-column min-vh-100">
+                <AppHeader />
+                <div className="body flex-grow-1">
+                    <div className='mt-3 mx-5'>
+                        <h1 className='text-center mb-4'>All Trips</h1>
+                        <MantineReactTable table={table} />
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
