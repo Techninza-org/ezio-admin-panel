@@ -52,7 +52,7 @@ const Dashboard = () => {
 
 
   return (
-    <>
+    <div>
       <CCard
         textBgColor={'primary'}
         className="mb-3"
@@ -73,7 +73,7 @@ const Dashboard = () => {
           <CCardTitle>Total Trips: {tripCount}</CCardTitle>
         </CCardBody>
       </CCard>
-    </>
+    </div>
   )
 }
 

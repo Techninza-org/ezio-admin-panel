@@ -87,8 +87,8 @@ export default function Trips() {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
-                    <div className='mt-3 mx-5'>
-                        <h1 className='text-center mb-4'>All Trips</h1>
+                <div className='mt-1 mx-3'>
+                        <h4 className='mb-2'>ALL TRIPS</h4>
                         <MantineReactTable table={table} />
                     </div>
                 </div>

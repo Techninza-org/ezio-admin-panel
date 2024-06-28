@@ -53,11 +53,11 @@ const AppHeaderDropdown = () => {
         <CAvatar color="primary" textColor="white">{first_letter}</CAvatar>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem onClick={() => navigate('/profile')} >
-          <CIcon icon={cilUser} className="me-2" />
+        <CDropdownItem onClick={() => navigate('/profile')} style={{'cursor': "pointer"}} >
+          <CIcon icon={cilUser} className="me-2 cursot-pointer" />
           Profile
         </CDropdownItem>
-        <CDropdownItem onClick={handleLogout} >
+        <CDropdownItem onClick={handleLogout} style={{'cursor': "pointer"}} >
           <CIcon icon={cilLockLocked} className="me-2" />
           Logout
         </CDropdownItem>

@@ -30,7 +30,7 @@ export default function TripDetails() {
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <div >
-                        <h1 className='text-center mt-4 mb-4'>{trip.user?.username}</h1>
+                        <h4 className='text-center mt-2 mb-2'>{trip.user?.username}</h4>
                         <div className='col-md-6 mx-auto mb-4'>
                             <CCard className='d-flex justify-content-center '>
                                 <CCardBody>

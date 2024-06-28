@@ -106,6 +106,12 @@ export default function AddService() {
         e.preventDefault();
         const token = localStorage.getItem('token')
         console.log(formData);
+        // Check if any field is empty
+        const isAnyFieldEmpty = Object.values(formData).some(value => value === "");
+        if (isAnyFieldEmpty) {
+            alert("Please fill in all fields");
+            return;
+        }
         const res = await axios.post("http://103.189.173.132:3000/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -196,178 +202,182 @@ export default function AddService() {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
-                    <div className="container mt-5 mb-5">
-                        <h1 className="mb-4 text-center">Add Service</h1>
-                        <CForm className="p-4 rounded shadow-sm">
-                            <div className="mb-5">
-                                <label htmlFor="type" className="form-label">Service Type</label>
-                                <select
-                                    name="type"
-                                    value={formData.type}
-                                    onChange={handleChange}
-                                    className="form-select"
-                                >
-                                    <option value="">Select Service Type</option>
-                                    {types.map((item) => (
-                                        <option key={item.id} value={item.id}>
-                                            {item.type}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            {group &&
-                                <div className="mb-5">
-                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <div style={{ width: '45%' }}>
-                                            <label htmlFor="start_date" className="form-label" style={{ marginRight: '15px' }}>Start Date</label>
-                                            <DatePicker
-                                                id="start_date"
-                                                selectsStart
-                                                selected={startDate}
-                                                onChange={(date) => {
-                                                    setStartDate(date)
-                                                    setFormData((prevData) => ({
-                                                        ...prevData,
-                                                        start_date: date
-                                                    }))
-                                                }}
-                                                autoComplete="off"
-                                                startDate={startDate}
-                                                className="form-control"
-                                            />
+                    <div className="container mt-1 mb-5">
+                        <h4 className="mb-2">ADD SERVICE</h4>
+                        <div className="row justify-content-center">
+                            <div className="col-lg-8">
+                                <CForm className="p-4 rounded shadow-sm lh-1">
+                                    <div className="mb-3">
+                                        <label htmlFor="type" className="form-label">Service Type</label>
+                                        <select
+                                            name="type"
+                                            value={formData.type}
+                                            onChange={handleChange}
+                                            className="form-select"
+                                        >
+                                            <option value="">Select Service Type</option>
+                                            {types.map((item) => (
+                                                <option key={item.id} value={item.id}>
+                                                    {item.type}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {group &&
+                                        <div className="mb-3">
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <div style={{ width: '45%' }}>
+                                                    <label htmlFor="start_date" className="form-label" style={{ marginRight: '15px' }}>Start Date</label>
+                                                    <DatePicker
+                                                        id="start_date"
+                                                        selectsStart
+                                                        selected={startDate}
+                                                        onChange={(date) => {
+                                                            setStartDate(date)
+                                                            setFormData((prevData) => ({
+                                                                ...prevData,
+                                                                start_date: date
+                                                            }))
+                                                        }}
+                                                        autoComplete="off"
+                                                        startDate={startDate}
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                                <div style={{ width: '45%' }}>
+                                                    <label htmlFor="end_date" className="form-label" style={{ marginRight: '15px' }}>End Date</label>
+                                                    <DatePicker
+                                                        id="end_date"
+                                                        selectsEnd
+                                                        selected={endDate}
+                                                        onChange={(date) => {
+                                                            setEndDate(date)
+                                                            setFormData((prevData) => ({
+                                                                ...prevData,
+                                                                end_date: date
+                                                            }))
+                                                        }}
+                                                        endDate={endDate}
+                                                        startDate={startDate}
+                                                        minDate={startDate}
+                                                        autoComplete="off"
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div style={{ width: '45%' }}>
-                                            <label htmlFor="end_date" className="form-label" style={{ marginRight: '15px' }}>End Date</label>
-                                            <DatePicker
-                                                id="end_date"
-                                                selectsEnd
-                                                selected={endDate}
-                                                onChange={(date) => {
-                                                    setEndDate(date)
-                                                    setFormData((prevData) => ({
-                                                        ...prevData,
-                                                        end_date: date
-                                                    }))
-                                                }}
-                                                endDate={endDate}
-                                                startDate={startDate}
-                                                minDate={startDate}
-                                                autoComplete="off"
-                                                className="form-control"
-                                            />
+                                    }
+                                    {group && <div className="mb-3">
+                                        <label htmlFor="total_seats" className="form-label">Total Seats</label>
+                                        <input
+                                            type="text"
+                                            name="total_seats"
+                                            value={formData.total_seats}
+                                            onChange={handleChange}
+                                            placeholder="Total Seats"
+                                            pattern="[0-9]*"
+                                            className="form-control"
+                                        />
+                                    </div>}
+                                    <div className="mb-3">
+                                        <label htmlFor="name" className="form-label">Service Name</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            placeholder="Service Name"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="description" className="form-label">Description</label>
+                                        <textarea
+                                            type="text"
+                                            name="description"
+                                            value={formData.description}
+                                            onChange={handleChange}
+                                            placeholder="Description"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                    {destinations.length > 0 && (
+                                        <div className="mb-3">
+                                            <label htmlFor="destination" className="form-label">Destination</label>
+                                            <select
+                                                name="destination"
+                                                value={formData.destination}
+                                                onChange={handleChange}
+                                                className="form-select"
+                                            >
+                                                <option value="">Select Destination</option>
+                                                {destinations.map((item) => (
+                                                    <option key={item.id} value={item.destination}>
+                                                        {item.destination}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+                                    <div className="mb-3">
+                                        <label htmlFor="duration" className="form-label">Duration</label>
+                                        <input
+                                            type="text"
+                                            name="duration"
+                                            value={formData.duration}
+                                            onChange={handleChange}
+                                            placeholder="No. of days (Example - 3)"
+                                            pattern="[0-9]*"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="price" className="form-label">Price</label>
+                                        <input
+                                            type="text"
+                                            onChange={handleChange}
+                                            name="price"
+                                            value={formData.price}
+                                            placeholder="Price / Night"
+                                            pattern="[0-9]*"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <h5>Services</h5>
+                                        <div className="row">
+                                            {options?.map((service) => (
+                                                <div key={service.id} className="col-md-3">
+                                                    <ServiceCheckbox
+                                                        name="services"
+                                                        value={service.name}
+                                                        label={service.name}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
-                            }
-                            {group && <div className="mb-5">
-                                <label htmlFor="total_seats" className="form-label">Total Seats</label>
-                                <input
-                                    type="text"
-                                    name="total_seats"
-                                    value={formData.total_seats}
-                                    onChange={handleChange}
-                                    placeholder="Total Seats"
-                                    pattern="[0-9]*"
-                                    className="form-control"
-                                />
-                            </div>}
-                            <div className="mb-5">
-                                <label htmlFor="name" className="form-label">Service Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    placeholder="Service Name"
-                                    className="form-control"
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="mb-5">
-                                <label htmlFor="description" className="form-label">Description</label>
-                                <input
-                                    type="text"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    placeholder="Description"
-                                    className="form-control"
-                                />
-                            </div>
-                            {destinations.length > 0 && (
-                                <div className="mb-5">
-                                    <label htmlFor="destination" className="form-label">Destination</label>
-                                    <select
-                                        name="destination"
-                                        value={formData.destination}
-                                        onChange={handleChange}
-                                        className="form-select"
-                                    >
-                                        <option value="">Select Destination</option>
-                                        {destinations.map((item) => (
-                                            <option key={item.id} value={item.destination}>
-                                                {item.destination}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            )}
-                            <div className="mb-5">
-                                <label htmlFor="duration" className="form-label">Duration</label>
-                                <input
-                                    type="text"
-                                    name="duration"
-                                    value={formData.duration}
-                                    onChange={handleChange}
-                                    placeholder="Duration (no. of days)"
-                                    pattern="[0-9]*"
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="mb-5">
-                                <label htmlFor="price" className="form-label">Price</label>
-                                <input
-                                    type="text"
-                                    onChange={handleChange}
-                                    name="price"
-                                    value={formData.price}
-                                    placeholder="Price / Night"
-                                    pattern="[0-9]*"
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="mb-5">
-                                <h5>Services</h5>
-                                <div className="row">
-                                    {options?.map((service) => (
-                                        <div key={service.id} className="col-md-3">
-                                            <ServiceCheckbox
-                                                name="services"
-                                                value={service.name}
-                                                label={service.name}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="mb-5">
-                                <h5>Itinerary</h5>
-                                {renderItineraryInputs()}
-                            </div>
+                                    <div className="mb-3">
+                                        <h5>Itinerary</h5>
+                                        {renderItineraryInputs()}
+                                    </div>
 
-                            <div className="mb-5">
-                                <h5>Pickups</h5>
-                                <label htmlFor="numberOfPickups" className="form-label">Number of Pickup Locations</label>
-                                <input type="text" name="numberOfPickups" value={formData.numberOfPickups} onChange={handleChange} placeholder="Number of Pickup locations" className="form-control mb-3" />
-                                {renderPickupInputs()}
-                            </div>
+                                    <div className="mb-3">
+                                        <h5>Pickups</h5>
+                                        <label htmlFor="numberOfPickups" className="form-label">Number of Pickup Locations</label>
+                                        <input type="text" name="numberOfPickups" value={formData.numberOfPickups} onChange={handleChange} placeholder="Number of Pickup locations (Example - 2)" className="form-control mb-3" />
+                                        {renderPickupInputs()}
+                                    </div>
 
 
 
-                            <button type="submit" onClick={handleSubmit} className="btn btn-primary">
-                                Submit
-                            </button>
-                        </CForm>
+                                    <button type="submit" onClick={handleSubmit} className="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </CForm>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

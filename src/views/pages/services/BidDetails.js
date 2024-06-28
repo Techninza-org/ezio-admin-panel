@@ -27,8 +27,8 @@ export default function BidDetails() {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
-                    <div >
-                        <h1 className='text-center mt-4 mb-4'>{service.name}</h1>
+                    <div className='mb-4'>
+                        <h4 className='mt-2 mb-2 text-center'>{service.name}</h4>
                         <div className='col-md-6 mx-auto'>
                             <CCard className='d-flex justify-content-center '>
                                 <CCardBody>

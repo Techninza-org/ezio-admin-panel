@@ -64,12 +64,12 @@ export default function Profile() {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
-                    <h1 className='text-center mt-4 mb-4'>Profile</h1>
+                    <h4 className='mt-1 mx-3 mb-4'>PROFILE</h4>
                     <CCard className='mx-auto w-75'>
                         <CCardBody className='d-flex'>
                             <div className='w-50 d-flex justify-content-center align-items-center'>
                                 <div className='w-50 position-relative d-flex flex-column align-items-center'>
-                                    <div style={{ position: 'relative', maxWidth: '150px', height: '150px' }}>
+                                    <div style={{ position: 'relative', maxWidth: '150px', height: '150px', border: '1px solid gray', borderRadius: '50%' }}>
                                         {profile.photo && <img src={profile.photo} alt='profile' style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />}
                                         <button onClick={handleButtonClick} className='btn-circle position-absolute' style={{ bottom: '15px', right: '20px', transform: 'translate(50%, 50%)' }}><CIcon icon={cilCamera} /></button>
                                     </div>
