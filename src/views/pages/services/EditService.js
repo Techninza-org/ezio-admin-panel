@@ -43,10 +43,10 @@ const EditService = () => {
             const cloudinaryResponses = await Promise.all(files.map(async (file) => {
                 const formData = new FormData();
                 formData.append('file', file);
-                formData.append('upload_preset', 'c3k94jx2');
+                formData.append('upload_preset', 'm3opjz73');
                 formData.append('folder', 'ezio_vendor');
 
-                const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dr4iluda9/image/upload', formData);
+                const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dleiya55u/image/upload', formData);
                 return cloudinaryResponse.data.secure_url;
             }));
             console.log(cloudinaryResponses);
