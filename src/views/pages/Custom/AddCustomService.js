@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CForm } from '@coreui/react';
-import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AddCustomService = () => {
     const [trip, setTrip] = useState({})
@@ -23,7 +22,7 @@ const AddCustomService = () => {
             const newItinerary = res.data.custom_trip.itinerary.map((item) => {
                 return {
                     destination: item.destination,
-                    activities: item.activities?.map((activity) => {
+                    activities: item.selectedActivities?.map((activity) => {
                         return activity.split(',').map((values) => {
                             return {
                                 activity: values,
@@ -116,129 +115,117 @@ const AddCustomService = () => {
     };
 
     return (
-        <>
-            <AppSidebar />
-            <div className="wrapper d-flex flex-column min-vh-100">
-                <AppHeader />
-                <div className="body flex-grow-1">
-                    <div className="container mt-1 mb-2 lh-1">
-                        <h4 className='mb-2 mx-3'>CUSTOM SERVICE TO BID</h4>
-                        <div className="row justify-content-center">
-                            <div className="col-lg-8">
-                                <CForm className="p-4 rounded shadow-sm">
-                                    <div className="mb-3">
-                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                            <div style={{ width: '45%' }}>
-                                                <label htmlFor="start_date" className="form-label" style={{ marginRight: '15px' }}>Start Date</label>
-                                                <DatePicker
-                                                    id="start_date"
-                                                    selectsStart
-                                                    selected={formData.start_date}
-                                                    onChange={(date) => {
-                                                        setStartDate(date)
-                                                        setFormData((prevData) => ({
-                                                            ...prevData,
-                                                            start_date: date
-                                                        }))
-                                                    }}
-                                                    autoComplete="off"
-                                                    startDate={formData.start_date}
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                            <div style={{ width: '45%' }}>
-                                                <label htmlFor="end_date" className="form-label" style={{ marginRight: '15px' }}>End Date</label>
-                                                <DatePicker
-                                                    id="end_date"
-                                                    selectsEnd
-                                                    selected={formData.end_date}
-                                                    onChange={(date) => {
-                                                        setEndDate(date)
-                                                        setFormData((prevData) => ({
-                                                            ...prevData,
-                                                            end_date: date
-                                                        }))
-                                                    }}
-                                                    endDate={formData.end_date}
-                                                    startDate={formData.start_date}
-                                                    minDate={formData.start_date}
-                                                    autoComplete="off"
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="name" className="form-label">Service Name</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={formData.name}
-                                            placeholder="Service Name"
-                                            className="form-control"
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="description" className="form-label">Description</label>
-                                        <textarea
-                                            type="text"
-                                            name="description"
-                                            value={formData.description}
-                                            onChange={handleChange}
-                                            placeholder="Description"
-                                            className="form-control"
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="price" className="form-label">Total Price</label>
-                                        <input
-                                            type="text"
-                                            onChange={handleChange}
-                                            name="price"
-                                            value={formData.price}
-                                            placeholder="Price"
-                                            pattern="[0-9]*"
-                                            className="form-control"
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <h5>Itinerary</h5>
-                                        {formData.itinerary.map((item, index) => (
-                                            <div key={index}>
-                                                <h6>Destination: {item.destination}</h6>
-                                                <ul className="list-unstyled">
-                                                    {item.activities[0].map((activity, activityIndex) => (
-                                                        <li key={activityIndex} className="d-flex align-items-center">
-                                                            <input
-                                                                type="text"
-                                                                value={activity.activity}
-                                                                onChange={(e) => handleActivityChange(index, activityIndex, 'activity', e.target.value)}
-                                                                className="form-control mx-4 w-25 my-2"
-                                                            />
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={activity.available}
-                                                                onChange={(e) => handleActivityChange(index, activityIndex, 'available', e.target.checked)}
-                                                                className="form-check-input mr-2"
-                                                            />
-                                                            <label className="form-check-label mr-2">Available</label>
-                                                        </li>
-                                                    ))}
-                                                    <button type='button' onClick={() => handleAddActivity(index)} className="btn btn-secondary mt-2 mx-4">Add Activity</button>
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
-                                </CForm>
-                            </div>
+        <div className="container mt-5 mb-5">
+            <h1 className="mb-4 text-center">Create Custom Bid Service</h1>
+            <CForm className="p-4 rounded shadow-sm">
+                <div className="mb-5">
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ width: '45%' }}>
+                            <label htmlFor="start_date" className="form-label" style={{ marginRight: '15px' }}>Start Date</label>
+                            <DatePicker
+                                id="start_date"
+                                selectsStart
+                                selected={formData.start_date}
+                                onChange={(date) => {
+                                    setStartDate(date)
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        start_date: date
+                                    }))
+                                }}
+                                autoComplete="off"
+                                startDate={formData.start_date}
+                                className="form-control"
+                            />
+                        </div>
+                        <div style={{ width: '45%' }}>
+                            <label htmlFor="end_date" className="form-label" style={{ marginRight: '15px' }}>End Date</label>
+                            <DatePicker
+                                id="end_date"
+                                selectsEnd
+                                selected={formData.end_date}
+                                onChange={(date) => {
+                                    setEndDate(date)
+                                    setFormData((prevData) => ({
+                                        ...prevData,
+                                        end_date: date
+                                    }))
+                                }}
+                                endDate={formData.end_date}
+                                startDate={formData.start_date}
+                                minDate={formData.start_date}
+                                autoComplete="off"
+                                className="form-control"
+                            />
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+                <div className="mb-5">
+                    <label htmlFor="name" className="form-label">Service Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        placeholder="Service Name"
+                        className="form-control"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="description" className="form-label">Description</label>
+                    <input
+                        type="text"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Description"
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="price" className="form-label">Total Price</label>
+                    <input
+                        type="text"
+                        onChange={handleChange}
+                        name="price"
+                        value={formData.price}
+                        placeholder="Price"
+                        pattern="[0-9]*"
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-5">
+                    <h5>Itinerary</h5>
+                    {formData.itinerary.map((item, index) => (
+                        <div key={index}>
+                            <h6>Destination: {item.destination}</h6>
+                            <ul className="list-unstyled">
+                                {item.activities[0].map((activity, activityIndex) => (
+                                    <li key={activityIndex} className="d-flex align-items-center">
+                                        <input
+                                            type="text"
+                                            value={activity.activity}
+                                            onChange={(e) => handleActivityChange(index, activityIndex, 'activity', e.target.value)}
+                                            className="form-control mx-4 w-25 my-2"
+                                        />
+                                        <input
+                                            type="checkbox"
+                                            checked={activity.available}
+                                            onChange={(e) => handleActivityChange(index, activityIndex, 'available', e.target.checked)}
+                                            className="form-check-input mr-2"
+                                        />
+                                        <label className="form-check-label mr-2">Available</label>
+                                    </li>
+                                ))}
+                                <button type='button' onClick={() => handleAddActivity(index)} className="btn btn-secondary mt-2 mx-4">Add Activity</button>
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+
+                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+            </CForm>
+        </div>
     )
 }
 
