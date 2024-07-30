@@ -105,13 +105,6 @@ export default function AddService() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        console.log(formData);
-        // Check if any field is empty
-        // const isAnyFieldEmpty = Object.values(formData).some(value => value === "");
-        // if (isAnyFieldEmpty) {
-        //     alert("Please fill in all fields");
-        //     return;
-        // }
         const res = await axios.post("http://103.189.173.132:3000/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -143,7 +136,6 @@ export default function AddService() {
     async function getServiceOptions() {
         const res = await axios.get('http://103.189.173.132:3000/superAdmin/service-options')
         const ser = res.data.serviceOptions;
-        console.log(res.data.serviceOptions);
         setOptions(ser);
     }
 

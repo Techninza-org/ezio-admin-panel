@@ -40,26 +40,18 @@ const EditService = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const cloudinaryResponses = await Promise.all(files.map(async (file) => {
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('upload_preset', 'm3opjz73');
-                formData.append('folder', 'ezio_vendor');
-
-                const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dleiya55u/image/upload', formData);
-                return cloudinaryResponse.data.secure_url;
-            }));
-            console.log(cloudinaryResponses);
-            const imageUrls = cloudinaryResponses
-            console.log(imageUrls);
+            const formData = new FormData()
+            files.forEach((file) => {
+                formData.append('files', file)
+            })
 
             const token = localStorage.getItem('token');
-            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/service/servicePics/${id}`, imageUrls, {
+            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/service/servicePics/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data"
                 }
             });
-            console.log(updateProfileResponse.data);
             setLoading(false);
             alert("Images uploaded successfully");
         } catch (error) {
@@ -114,7 +106,6 @@ const EditService = () => {
     async function getServiceOptions() {
         const res = await axios.get('http://103.189.173.132:3000/superAdmin/service-options')
         const ser = res.data.serviceOptions;
-        console.log(res.data.serviceOptions);
         setOptions(ser);
     }
 

@@ -15,7 +15,6 @@ export default function BidDetails() {
             }
         })
         setService(res.data.service)
-        console.log(res.data.service);
     }
     useEffect(() => {
         getService()

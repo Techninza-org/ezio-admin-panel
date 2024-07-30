@@ -15,7 +15,6 @@ export default function TripToBidDetails() {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res.data);
             setTrip(res.data.custom_trip)
         }
         getTrip()

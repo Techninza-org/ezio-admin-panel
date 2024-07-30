@@ -16,7 +16,6 @@ export default function TripDetails() {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res.data);
             setTrip(res.data.trip)
             setService(res.data.trip.service)
         }

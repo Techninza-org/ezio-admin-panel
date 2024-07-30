@@ -33,31 +33,21 @@ export default function Profile() {
         e.preventDefault();
         const file = e.target.files[0];
         const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', 'm3opjz73');
-        formData.append('folder', 'ezio_vendor');
-
+        formData.append('image', file);
         try {
-            const cloudinaryResponse = await axios.post('https://api.cloudinary.com/v1_1/dleiya55u/image/upload', formData);
-
-            const imageUrl = await cloudinaryResponse.data.secure_url;
-
             const token = localStorage.getItem('token');
-            const profileId = profile.id;
-            const updateProfileResponse = await axios.post(`http://103.189.173.132:3000/host/profile/${profileId}`, { photo: imageUrl }, {
+            const userId = JSON.parse(localStorage.getItem('user')).id
+            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/host/profile/pic/${userId}`, formData, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data"
                 }
             });
-            console.log(updateProfileResponse.data);
-
             window.location.reload();
         } catch (error) {
             console.error('Error uploading image or updating profile:', error);
         }
     };
-
-
     return (
         <>
             <AppSidebar />

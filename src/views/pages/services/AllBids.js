@@ -17,7 +17,6 @@ const AllBids = () => {
             }
         })
         const ser = res.data.bids;
-        console.log(ser);
         setServices(ser);
     }
 

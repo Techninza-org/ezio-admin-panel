@@ -17,7 +17,6 @@ const AddCustomService = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res.data.custom_trip);
             setTrip(res.data.custom_trip)
             const newItinerary = res.data.custom_trip.itinerary.map((item) => {
                 return {
@@ -99,7 +98,6 @@ const AddCustomService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        console.log(formData);
         const res = await axios.post("http://103.189.173.132:3000/custom/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,

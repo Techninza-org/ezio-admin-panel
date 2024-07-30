@@ -19,7 +19,6 @@ export default function EditProfile() {
             }
         })
         setProfile(res.data.host)
-        console.log(res.data.host);
     }
 
     const handleChange = (e) => {
@@ -39,7 +38,6 @@ export default function EditProfile() {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(res);
         if (res.status === 200) {
             alert("Profile updated successfully");
         } else {
