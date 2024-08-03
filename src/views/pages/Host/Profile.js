@@ -21,7 +21,7 @@ export default function Profile() {
     async function getProfile() {
         const token = localStorage.getItem('token')
         const userId = JSON.parse(localStorage.getItem('user')).id
-        const res = await axios.get(`http://103.189.173.132:3000/host/profile/${userId}`, {
+        const res = await axios.get(`https://eziotravels.com:5000/host/profile/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -37,7 +37,7 @@ export default function Profile() {
         try {
             const token = localStorage.getItem('token');
             const userId = JSON.parse(localStorage.getItem('user')).id
-            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/host/profile/pic/${userId}`, formData, {
+            const updateProfileResponse = await axios.put(`https://eziotravels.com:5000/host/profile/pic/${userId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data"

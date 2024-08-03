@@ -105,7 +105,7 @@ export default function AddService() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.post("http://103.189.173.132:3000/service", formData, {
+        const res = await axios.post("https://eziotravels.com:5000/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -122,7 +122,7 @@ export default function AddService() {
     const getDestinations = async () => {
         const token = localStorage.getItem('token')
         try {
-            const response = await axios.get("http://103.189.173.132:3000/destination", {
+            const response = await axios.get("https://eziotravels.com:5000/destination", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -134,7 +134,7 @@ export default function AddService() {
     };
 
     async function getServiceOptions() {
-        const res = await axios.get('http://103.189.173.132:3000/superAdmin/service-options')
+        const res = await axios.get('https://eziotravels.com:5000/superAdmin/service-options')
         const ser = res.data.serviceOptions;
         setOptions(ser);
     }

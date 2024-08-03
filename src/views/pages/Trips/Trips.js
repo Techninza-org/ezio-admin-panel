@@ -12,7 +12,7 @@ export default function Trips() {
     useEffect(() => {
         async function getTrips() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`http://103.189.173.132:3000/host/trips?id=${user_id}`, {
+            const res = await axios.get(`https://eziotravels.com:5000/host/trips?id=${user_id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

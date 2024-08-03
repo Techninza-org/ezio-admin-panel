@@ -46,7 +46,7 @@ const EditService = () => {
             })
 
             const token = localStorage.getItem('token');
-            const updateProfileResponse = await axios.put(`http://103.189.173.132:3000/service/servicePics/${id}`, formData, {
+            const updateProfileResponse = await axios.put(`https://eziotravels.com:5000/service/servicePics/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data"
@@ -90,7 +90,7 @@ const EditService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.put(`http://103.189.173.132:3000/service/${id}`, service, {
+        const res = await axios.put(`https://eziotravels.com:5000/service/${id}`, service, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -104,7 +104,7 @@ const EditService = () => {
     };
 
     async function getServiceOptions() {
-        const res = await axios.get('http://103.189.173.132:3000/superAdmin/service-options')
+        const res = await axios.get('https://eziotravels.com:5000/superAdmin/service-options')
         const ser = res.data.serviceOptions;
         setOptions(ser);
     }
@@ -113,7 +113,7 @@ const EditService = () => {
         const getService = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const res = await axios.get(`http://103.189.173.132:3000/service/${id}`, {
+                const res = await axios.get(`https://eziotravels.com:5000/service/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
