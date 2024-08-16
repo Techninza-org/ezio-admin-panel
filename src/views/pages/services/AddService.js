@@ -330,7 +330,7 @@ export default function AddService() {
                                             onChange={handleChange}
                                             name="price"
                                             value={formData.price}
-                                            placeholder="Price / Night"
+                                            placeholder="Price / Night / Person"
                                             pattern="[0-9]*"
                                             className="form-control"
                                         />

@@ -36,7 +36,7 @@ const AllServices = () => {
                 accessorKey: 'duration',
             },
             {
-                header: 'Price / Night',
+                header: 'Price / Night / Person',
                 accessorKey: 'price',
             },
             {

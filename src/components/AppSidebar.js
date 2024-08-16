@@ -33,11 +33,13 @@ const AppSidebar = () => {
       }}
     >
       {/* className="border-bottom" */}
-      <CSidebarHeader > 
+      <CSidebarHeader >
         <CSidebarBrand to="/">
-          <h2>EZI Vendor</h2>
+          {/* <h2>EZI Vendor</h2> */}
           {/* <CIcon customClassName="sidebar-brand-full" height={32} /> */}
-          {/* <CImage src={'https://res.cloudinary.com/dr4iluda9/image/upload/v1719553407/ezio_vendor/logo.svg'} height={'50px'} width={50} fluid /> */}
+          {/* <div className='d-flex justify-content-center align-items-center'> */}
+            <CImage src={'https://ezio.s3.eu-north-1.amazonaws.com/logo.jpg'} height={100} width={180} fluid />
+          {/* </div> */}
           {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}
         </CSidebarBrand>
         <CCloseButton

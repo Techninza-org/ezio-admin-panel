@@ -213,13 +213,13 @@ const EditService = () => {
                                         />
                                     </div>
                                     <div className="mb-2">
-                                        <label htmlFor="price" className="form-label">Price / Night</label>
+                                        <label htmlFor="price" className="form-label">Price / Night / Person</label>
                                         <input
                                             type="text"
                                             onChange={handleChange}
                                             name="price"
                                             value={service.price}
-                                            placeholder="Price / Night"
+                                            placeholder="Price / Night / Person"
                                             pattern="[0-9]*"
                                             className="form-control"
                                         />
