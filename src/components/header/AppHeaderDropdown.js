@@ -57,6 +57,10 @@ const AppHeaderDropdown = () => {
           <CIcon icon={cilUser} className="me-2 cursot-pointer" />
           Profile
         </CDropdownItem>
+        <CDropdownItem onClick={() => navigate('/kyc')} style={{'cursor': "pointer"}} >
+          <CIcon icon={cilUser} className="me-2 cursot-pointer" />
+          KYC
+        </CDropdownItem>
         <CDropdownItem onClick={() => navigate('/change-password')} style={{'cursor': "pointer"}} >
           <CIcon icon={cilUser} className="me-2 cursot-pointer" />
           Change Password

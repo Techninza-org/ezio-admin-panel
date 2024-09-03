@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import ChangePassword from './views/pages/login/ChangePassword'
+import Kyc from './views/pages/Kyc'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -75,6 +76,7 @@ const App = () => {
           <Route exact path='/bidding/service/:id' name='Custom' element={<AddCustomService />} />
           <Route exact path='/bidding/all' name='Custom' element={<AllBids />} />
           <Route exact path='/change-password' name='Password' element={<ChangePassword />} />
+          <Route exact path="/kyc" name="kyc" element={<Kyc />} />
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
       </Suspense>
