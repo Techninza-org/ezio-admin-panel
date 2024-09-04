@@ -21,7 +21,7 @@ const Kyc = () => {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            console.log(kycRes, 'res');
+            getKycDetails();
         } catch (error) {
             console.error('Error uploading image:', error);
         }
@@ -45,7 +45,6 @@ const Kyc = () => {
             }
         })
         setKyc(res.data)
-        console.log(res.data, 'res');
     }
 
     useEffect(() => {
