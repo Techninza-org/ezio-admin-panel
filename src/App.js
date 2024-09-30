@@ -6,6 +6,7 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import ChangePassword from './views/pages/login/ChangePassword'
 import Kyc from './views/pages/Kyc'
+import Notifs from './views/pages/services/Notifs'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -77,6 +78,8 @@ const App = () => {
           <Route exact path='/bidding/all' name='Custom' element={<AllBids />} />
           <Route exact path='/change-password' name='Password' element={<ChangePassword />} />
           <Route exact path="/kyc" name="kyc" element={<Kyc />} />
+          <Route exact path="/notifs" name="kyc" element={<Notifs />} />
+
           <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
       </Suspense>

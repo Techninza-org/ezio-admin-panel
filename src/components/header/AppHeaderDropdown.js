@@ -34,7 +34,7 @@ const AppHeaderDropdown = () => {
     }
     if (loggedIn) {
       const user_name = JSON.parse(localStorage.getItem('user')).name;
-      setFirstLetter(user_name.charAt(0).toUpperCase())
+      setFirstLetter(user_name?.charAt(0).toUpperCase() || '')
     }
     if (!loggedIn) {
       navigate('/login')

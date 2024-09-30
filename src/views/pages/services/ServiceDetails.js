@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AppSidebar, AppHeader } from '../../../components/index'
+import { format } from 'date-fns'
 
 export default function ServiceDetails() {
     const [service, setService] = useState({})
@@ -34,6 +35,8 @@ export default function ServiceDetails() {
                                     <div className='lh-1'>
                                         <p><span style={{ fontWeight: 'bold', marginRight: '20px' }}>Destination:</span> {service.destination}</p>
                                         <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Description:</span> {service.description}</p>
+                                        <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Start Date:</span> {service.start_date ? format(new Date(service.start_date), 'dd/MM/yyyy') : 'N/A'}</p>
+                                        <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Start Date:</span> {service.end_date ? format(new Date(service.end_date), 'dd/MM/yyyy') : 'N/A'}</p>
                                         <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Duration:</span> {service.duration} days</p>
                                         <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Price:</span> Rs. {service.price} / Night</p>
                                         <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Rating:</span> {service.rating}</p>
