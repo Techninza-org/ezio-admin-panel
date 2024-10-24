@@ -10,7 +10,7 @@ export default function ServiceDetails() {
     const { id } = useParams()
     async function getService() {
         const token = localStorage.getItem('token')
-        const res = await axios.get(`https://eziotravels.com:5000/service/${id}`, {
+        const res = await axios.get(`https://eziotravels.com/api/service/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

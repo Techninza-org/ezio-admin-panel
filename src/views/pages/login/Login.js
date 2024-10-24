@@ -29,7 +29,7 @@ const Login = () => {
         password: password,
       }
       const response = await axios.post(
-        "https://eziotravels.com:5000/auth/host-login",
+        "https://eziotravels.com/api/auth/host-login",
         creds
       );
       localStorage.setItem('user', JSON.stringify(response.data.user));

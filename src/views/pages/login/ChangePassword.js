@@ -31,7 +31,7 @@ const ChangePassword = () => {
         oldPassword: oldPassword,
       }
       const response = await axios.put(
-        `https://eziotravels.com:5000/host/password/${userId}`,
+        `https://eziotravels.com/api/host/password/${userId}`,
         creds, {
             headers: {
                 Authorization: `Bearer ${token}`

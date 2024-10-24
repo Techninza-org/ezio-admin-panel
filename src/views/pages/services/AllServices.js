@@ -11,7 +11,7 @@ const AllServices = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const token = localStorage.getItem('token')
     async function getServices() {
-        const res = await axios.get(`https://eziotravels.com:5000/service/host/${user.id}`, {
+        const res = await axios.get(`https://eziotravels.com/api/service/host/${user.id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

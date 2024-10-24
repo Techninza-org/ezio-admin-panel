@@ -12,7 +12,7 @@ const AddCustomService = () => {
     useEffect(() => {
         async function getTrip() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`https://eziotravels.com:5000/custom/${id}`, {
+            const res = await axios.get(`https://eziotravels.com/api/custom/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -98,7 +98,7 @@ const AddCustomService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token')
-        const res = await axios.post("https://eziotravels.com:5000/custom/service", formData, {
+        const res = await axios.post("https://eziotravels.com/api/custom/service", formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",

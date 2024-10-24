@@ -15,7 +15,7 @@ const Kyc = () => {
         formData.append('gst', gst);
         try {
             const token = localStorage.getItem('token');
-            const kycRes = await axios.post(`https://eziotravels.com:5000/host/kyc`, formData, {
+            const kycRes = await axios.post(`https://eziotravels.com/api/host/kyc`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data"
@@ -39,7 +39,7 @@ const Kyc = () => {
 
     async function getKycDetails() {
         const token = localStorage.getItem('token')
-        const res = await axios.get(`https://eziotravels.com:5000/host/kyc`, {
+        const res = await axios.get(`https://eziotravels.com/api/host/kyc`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -11,7 +11,7 @@ export default function CustomTripsToBid() {
     useEffect(() => {
         async function getTrips() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`https://eziotravels.com:5000/custom/all`, {
+            const res = await axios.get(`https://eziotravels.com/api/custom/all`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

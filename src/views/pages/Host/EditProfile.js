@@ -13,7 +13,7 @@ export default function EditProfile() {
     async function getProfile() {
         const token = localStorage.getItem('token')
         const userId = JSON.parse(localStorage.getItem('user')).id
-        const res = await axios.get(`https://eziotravels.com:5000/host/profile/${userId}`, {
+        const res = await axios.get(`https://eziotravels.com/api/host/profile/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -33,7 +33,7 @@ export default function EditProfile() {
         e.preventDefault();
         const token = localStorage.getItem('token')
         const userId = JSON.parse(localStorage.getItem('user')).id
-        const res = await axios.put(`https://eziotravels.com:5000/host/profile/update/${userId}`, profile, {
+        const res = await axios.put(`https://eziotravels.com/api/host/profile/update/${userId}`, profile, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

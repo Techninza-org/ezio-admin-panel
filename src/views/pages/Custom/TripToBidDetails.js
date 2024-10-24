@@ -10,7 +10,7 @@ export default function TripToBidDetails() {
     useEffect(() => {
         async function getTrip() {
             const token = localStorage.getItem('token')
-            const res = await axios.get(`https://eziotravels.com:5000/custom/${id}`, {
+            const res = await axios.get(`https://eziotravels.com/api/custom/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
