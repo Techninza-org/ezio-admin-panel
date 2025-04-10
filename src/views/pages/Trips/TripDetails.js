@@ -47,7 +47,7 @@ export default function TripDetails() {
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">No. of People</th>
-                                                        <td>{trip.number_of_people}</td>
+                                                        <td>{trip?.number_of_people}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Phone</th>
@@ -59,19 +59,19 @@ export default function TripDetails() {
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Start Date</th>
-                                                        <td>{trip.start_date}</td>
+                                                        <td>{trip?.start_date}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">End Date</th>
-                                                        <td>{trip.end_date}</td>
+                                                        <td>{trip?.end_date}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Booking Price</th>
-                                                        <td>Rs. {trip.cost}</td>
+                                                        <td>Rs. {trip?.cost}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Service Name</th>
-                                                        <td>{trip.service?.name}</td>
+                                                        <td>{trip?.service?.name}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Services</th>
@@ -83,7 +83,7 @@ export default function TripDetails() {
                                                             </ul>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    {/* <tr>
                                                         <th scope="row">Itinerary</th>
                                                         <td>
                                                             <ol className="mb-0 ps-3">
@@ -92,7 +92,7 @@ export default function TripDetails() {
                                                                 ))}
                                                             </ol>
                                                         </td>
-                                                    </tr>
+                                                    </tr> */}
                                                 </tbody>
                                             </table>
                                         </div>
