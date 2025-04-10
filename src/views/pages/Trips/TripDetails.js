@@ -30,39 +30,77 @@ export default function TripDetails() {
                 <div className="body flex-grow-1">
                     <div >
                         <h4 className='text-center mt-2 mb-2'>{trip.user?.username}</h4>
-                        <div className='col-md-6 mx-auto mb-4'>
-                            <CCard className='d-flex justify-content-center '>
-                                <CCardBody>
-                                    <div>
-                                        <p><span style={{ fontWeight: 'bold' }}>Destination:</span> {service?.destination}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Description:</span> {service?.description}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>No. of people:</span> {trip.number_of_people}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Phone:</span> {trip.user?.phone}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Duration:</span> {service?.duration} days</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Start Date:</span>{trip.start_date}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>End Date:</span>{trip.end_date}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Booking Price:</span> Rs. {trip.cost}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Service Name:</span>{trip.service?.name}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Services:</span></p>
-                                        <ul className="">
-                                            {
-                                                service?.services?.map((service, index) => (
-                                                    <li key={index}>{service}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                        <p><span style={{ fontWeight: 'bold' }}>Itinerary:</span></p>
-                                        <ol className="">
-                                            {
-                                                service?.itinerary?.map((itinerary, index) => (
-                                                    <li key={index}>{itinerary}</li>
-                                                ))
-                                            }
-                                        </ol>
+                        <div className="container my-4">
+                            <div className="row justify-content-center">
+                                <div className="col-md-8">
+                                    <div className="shadow-sm">
+                                        <div className="card-body">
+                                            <table className="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Destination</th>
+                                                        <td>{service?.destination}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Description</th>
+                                                        <td>{service?.description}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">No. of People</th>
+                                                        <td>{trip.number_of_people}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Phone</th>
+                                                        <td>{trip.user?.phone}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Duration</th>
+                                                        <td>{service?.duration} days</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Start Date</th>
+                                                        <td>{trip.start_date}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">End Date</th>
+                                                        <td>{trip.end_date}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Booking Price</th>
+                                                        <td>Rs. {trip.cost}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Service Name</th>
+                                                        <td>{trip.service?.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Services</th>
+                                                        <td>
+                                                            <ul className="mb-0 ps-3">
+                                                                {service?.services?.map((s, i) => (
+                                                                    <li key={i}>{s}</li>
+                                                                ))}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Itinerary</th>
+                                                        <td>
+                                                            <ol className="mb-0 ps-3">
+                                                                {service?.itinerary?.map((item, idx) => (
+                                                                    <li key={idx}>{item}</li>
+                                                                ))}
+                                                            </ol>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </CCardBody>
-                            </CCard>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

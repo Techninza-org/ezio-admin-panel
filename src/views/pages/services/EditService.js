@@ -225,6 +225,18 @@ const EditService = () => {
                                         />
                                     </div>
                                     <div className="mb-2">
+                                        <label htmlFor="offer_price" className="form-label">Offer Price</label>
+                                        <input
+                                            type="text"
+                                            onChange={handleChange}
+                                            name="offer_price"
+                                            value={service.offer_price}
+                                            placeholder="Offer Price"
+                                            pattern="[0-9]*"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                    <div className="mb-2">
                                         <h5 className="mb-3">Services</h5>
                                         <div className="row">
                                             {options?.map((service) => (

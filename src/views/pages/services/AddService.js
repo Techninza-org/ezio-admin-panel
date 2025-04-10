@@ -42,6 +42,7 @@ export default function AddService() {
         destination: "",
         duration: "",
         price: "",
+        offer_price: "",
         services: [],
         itinerary: [],
         type: "",
@@ -331,6 +332,18 @@ export default function AddService() {
                                             name="price"
                                             value={formData.price}
                                             placeholder="Price / Night / Person"
+                                            pattern="[0-9]*"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="offer_price" className="form-label">Offer Price</label>
+                                        <input
+                                            type="text"
+                                            onChange={handleChange}
+                                            name="offer_price"
+                                            value={formData.offer_price}
+                                            placeholder="Offer Price"
                                             pattern="[0-9]*"
                                             className="form-control"
                                         />

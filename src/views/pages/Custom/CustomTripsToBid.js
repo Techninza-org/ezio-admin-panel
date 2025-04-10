@@ -25,8 +25,22 @@ export default function CustomTripsToBid() {
     const columns = useMemo(
         () => [
             {
+                header: "S.No",
+                accessorFn: (dataRow, index) => index + 1,
+            },
+            {
                 header: 'Details',
                 accessorFn: (dataRow) => <Link to={`/bidding/details/${dataRow.id}`}><CIcon icon={cilDescription} /></Link>,
+                size: 50,
+            },
+            {
+                header: 'User',
+                accessorKey: 'user.username',
+                size: 50,
+            },
+            {
+                header: 'User Phone',
+                accessorKey: 'user.phone',
                 size: 50,
             },
             {

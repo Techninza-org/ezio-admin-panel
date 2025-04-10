@@ -26,6 +26,10 @@ export default function Trips() {
     const columns = useMemo(
         () => [
             {
+                header: "S.No",
+                accessorFn: (dataRow, index) => index + 1,
+            },
+            {
                 header: 'Details',
                 accessorFn: (dataRow) => <Link to={`/trip/${dataRow.id}`}><CIcon icon={cilDescription} /></Link>,
                 size: 50,

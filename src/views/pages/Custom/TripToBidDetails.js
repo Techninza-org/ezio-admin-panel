@@ -27,32 +27,60 @@ export default function TripToBidDetails() {
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <h4 className='mt-1 mx-3 mb-4'>CUSTOM TRIP DETAILS</h4>
-                    <div className='col-md-6 mx-auto mb-4 lh-1'>
-                        <CCard className='d-flex justify-content-center '>
-                            <CCardBody>
-                                <div>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>User:</span> {trip.user?.username}</p>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Phone:</span> {trip.user?.phone}</p>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>No. of people:</span> {trip.number_of_people}</p>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Start Date:</span>{trip.start_date}</p>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>End Date:</span>{trip.end_date}</p>
-                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Itinerary:</span></p>
-                                    <ul>
-                                        {
-                                            trip.itinerary?.map((item, index) => (
-                                                <li key={index}>
-                                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Day {index + 1}</span></p>
-                                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Destination:</span> {item.destination}</p>
-                                                    <p><span style={{ fontWeight: 'bold', marginRight: '20px'  }}>Activities:</span> {item.selectedActivities?.join(', ') ?? ''}</p>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                                </div>
-                                <Link to={`/bidding/service/${id}`}><button className='btn btn-primary'>Bid Your Service</button></Link>
-                            </CCardBody>
-                        </CCard>
-                    </div>
+                    <div className="container my-4">
+  <div className="row justify-content-center">
+    <div className="col-md-8">
+      <div className="shadow-sm">
+        <div className="card-body lh-sm">
+          <table className="table table-bordered">
+            <tbody>
+              <tr>
+                <th>User</th>
+                <td>{trip.user?.username}</td>
+              </tr>
+              <tr>
+                <th>Phone</th>
+                <td>{trip.user?.phone}</td>
+              </tr>
+              <tr>
+                <th>No. of People</th>
+                <td>{trip.number_of_people}</td>
+              </tr>
+              <tr>
+                <th>Start Date</th>
+                <td>{trip.start_date}</td>
+              </tr>
+              <tr>
+                <th>End Date</th>
+                <td>{trip.end_date}</td>
+              </tr>
+              <tr>
+                <th>Itinerary</th>
+                <td>
+                  <ul className="mb-0 ps-3">
+                    {trip.itinerary?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        <div><strong>Day {index + 1}</strong></div>
+                        <div><strong>Destination:</strong> {item.destination}</div>
+                        <div><strong>Activities:</strong> {item.selectedActivities?.join(', ') ?? ''}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="text-end">
+            <Link to={`/bidding/service/${id}`}>
+              <button className="btn btn-primary">Bid Your Service</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
                 </div>
             </div>
         </>

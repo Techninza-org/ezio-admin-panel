@@ -23,6 +23,10 @@ const AllServices = () => {
     const columns = useMemo(
         () => [
             {
+                header: "S.No",
+                accessorFn: (dataRow, index) => index + 1,
+            },
+            {
                 header: 'Name',
                 accessorKey: 'name',
                 accessorFn: (dataRow) => <Link to={`/service/${dataRow.id}`} style={{ textDecoration: 'none' }}>{dataRow.name}</Link>,
@@ -38,6 +42,10 @@ const AllServices = () => {
             {
                 header: 'Price / Night / Person',
                 accessorKey: 'price',
+            },
+            {
+                header: 'Offer Price',
+                accessorKey: 'offer_price',
             },
             {
                 header: 'Edit',

@@ -28,30 +28,51 @@ export default function BidDetails() {
                 <div className="body flex-grow-1">
                     <div className='mb-4'>
                         <h4 className='mt-2 mb-2 text-center'>{service.name}</h4>
-                        <div className='col-md-6 mx-auto'>
-                            <CCard className='d-flex justify-content-center '>
-                                <CCardBody>
-                                    <div>
-                                        <p><span style={{ fontWeight: 'bold' }}>Name:</span> {service.name}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Description:</span> {service.description}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Duration:</span> {service.duration} days</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Price:</span> Rs. {service.price}</p>
-                                        <p><span style={{ fontWeight: 'bold' }}>Itinerary:</span></p>
-                                        <ul>
-                                            {
-                                                service.itinerary?.map((item, index) => (
-                                                    <li key={index}>
-                                                        <p><span style={{ fontWeight: 'bold' }}>Day {index + 1}</span></p>
-                                                        <p><span style={{ fontWeight: 'bold' }}>Destination:</span> {item.destination}</p>
-                                                        <p><span style={{ fontWeight: 'bold' }}>Activities:</span> {item.activities[0].map(activity => activity.activity).join(', ')}</p>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </CCardBody>
-                            </CCard>
-                        </div>
+                        <div className="container my-4">
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="shadow-sm">
+        <div className="card-body">
+          <table className="table table-bordered">
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <td>{service.name}</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td>{service.description}</td>
+              </tr>
+              <tr>
+                <th>Duration</th>
+                <td>{service.duration} days</td>
+              </tr>
+              <tr>
+                <th>Price</th>
+                <td>Rs. {service.price}</td>
+              </tr>
+              <tr>
+                <th>Itinerary</th>
+                <td>
+                  <ul className="mb-0 ps-3">
+                    {service.itinerary?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        <div><strong>Day {index + 1}</strong></div>
+                        <div><strong>Destination:</strong> {item.destination}</div>
+                        <div><strong>Activities:</strong> {item.activities[0]?.map(a => a.activity).join(', ')}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
                     </div>
                 </div>
             </div>

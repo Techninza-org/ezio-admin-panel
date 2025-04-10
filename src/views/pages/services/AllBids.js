@@ -23,6 +23,10 @@ const AllBids = () => {
     const columns = useMemo(
         () => [
             {
+                header: "S.No",
+                accessorFn: (dataRow, index) => index + 1,
+            },
+            {
                 header: 'Name',
                 accessorKey: 'name',
                 accessorFn: (dataRow) => <Link to={`/service/bid/${dataRow.id}`} style={{ textDecoration: 'none' }}>{dataRow.name}</Link>,
