@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table';
 import CIcon from '@coreui/icons-react';
-import { cilPencil } from '@coreui/icons';
+import { cilLightbulb, cilPencil } from '@coreui/icons';
 import { AppSidebar, AppHeader } from '../../../components/index'
 
 const AllServices = () => {
@@ -18,6 +18,15 @@ const AllServices = () => {
         })
         const ser = res.data.services;
         setServices(ser);
+    }
+
+    async function handleStatus(id) {
+        const res = await axios.get(`https://eziotravels.com/api/service/status/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        getServices();
     }
 
     const columns = useMemo(
@@ -51,6 +60,17 @@ const AllServices = () => {
                 header: 'Edit',
                 accessorFn: (dataRow) => <Link to={`/service/edit/${dataRow.id}`} className="btn btn-primary"><CIcon icon={cilPencil} /></Link>,
             },
+            {
+                header: 'Active',
+                accessorFn: (dataRow) => (
+                    <button
+                      className={`btn ${dataRow.active ? 'btn-success' : 'btn-danger'}`}
+                      onClick={() => handleStatus(dataRow.id)}
+                    >
+                      <CIcon icon={cilLightbulb} />
+                    </button>
+                  )
+            },  
         ],
         [],
     );
